@@ -1,18 +1,19 @@
-import ru.practicum.task_tracker.manager.TaskManager;
-import ru.practicum.task_tracker.task.Epic;
-import ru.practicum.task_tracker.task.Status;
-import ru.practicum.task_tracker.task.Subtask;
-import ru.practicum.task_tracker.task.Task;
+import ru.practicum.tasktracker.manager.TaskManager;
+import ru.practicum.tasktracker.task.Epic;
+import ru.practicum.tasktracker.task.Status;
+import ru.practicum.tasktracker.task.Subtask;
+import ru.practicum.tasktracker.task.Task;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("Поехали!");
         testTasks();
-
-
     }
 
     private static void testTasks() {
@@ -44,7 +45,7 @@ public class Main {
         System.out.println();
 
         System.out.println("Тест 4: Удаление таски");
-        boolean deleteRes = taskManager.deleteTask(task2Updated.getId());
+        boolean deleteRes = taskManager.deleteTask(task2Updated);
         System.out.println("Удаление должно пройти успешно: " + deleteRes);
         System.out.println("Список тасок должен быть пустой: " + taskManager.getTasks());
         System.out.println();
@@ -52,27 +53,46 @@ public class Main {
 
         System.out.println("Тест 5: Создание эпика");
         Epic epic1 = new Epic("Имя Эпика", "Описание эпика", Status.NEW);
-        Task epic1Created = taskManager.createTask(epic1);
+        Epic epic1Created = taskManager.createEpic(epic1);
         System.out.println("Созданный эпик должен содержать айди: " + (epic1Created.getId() != null));
-        System.out.println("Список тасок должен содержать наш эпик: " + (taskManager.getTasks()));
+        System.out.println("Список тасок должен содержать наш эпик: " + (taskManager.getEpics()));
         System.out.println();
 
         System.out.println("Тест 6: Создание сабтаски");
-        Subtask subtask1 = new Subtask("Имя Сабтаски", "Описание Сабтаски", Status.NEW);
-        Task subtask1Created = taskManager.createSubtask(epic1, subtask1);
+        Subtask subtask1 = new Subtask(epic1.getId(), "Имя Сабтаски", "Описание Сабтаски", Status.NEW);
+        Subtask subtask1Created = taskManager.createSubtask(subtask1);
         System.out.println("Созданный сабтаск должен содержать айди: " + (subtask1Created.getId() != null));
-        System.out.println("Список тасок должен содержать наш сабтаск: " + (taskManager.getTasks()));
+        System.out.println("Список тасок должен содержать наш сабтаск: " + (taskManager.getSubtasks()));
+        System.out.println();
+        System.out.println("Список тасок должен содержать наш эпик: " + (taskManager.getEpics()));
+
         System.out.println();
 
+        System.out.println("Тест 7: Распечатать список тасок");
+        ArrayList<Task> tasksList = taskManager.getTasks();
+        for (Task task : tasksList) {
+            System.out.println(task.toString());
+        }
+        System.out.println();
 
+        System.out.println("Тест 8: Распечатать список эпиков");
+        ArrayList<Epic> epicList = taskManager.getEpics();
+        for (Epic epic : epicList) {
+            System.out.println(epic.toString());
+        }
+        System.out.println();
 
+        System.out.println("Тест 8: Распечатать список сабтасок у эпика epic1Created");
+        ArrayList<Integer> subtuskIds = epic1Created.getSubtuskIds();
 
-        //распечатать списки задач конкретного эпика
-        //распечатать только эпики
-        //распечатать только сабтаски
-        //удалить подзадачу
-        //удалить эпик
-
+        ArrayList<Subtask> subList = taskManager.getSubtasks();
+        for (Subtask subtask : subList) {
+            for (Integer subEpicIds : subtuskIds) {
+                if (Objects.equals(subtask.getId(), subEpicIds)) {
+                    System.out.println(subtask.toString());
+                }
+            }
+        }
 
     }
 
