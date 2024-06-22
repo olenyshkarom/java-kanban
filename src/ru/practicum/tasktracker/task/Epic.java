@@ -1,13 +1,14 @@
 package ru.practicum.tasktracker.task;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Epic extends Task {
 
-    private ArrayList<Integer> subtuskIds = new ArrayList<>();
+    private List<Integer> subtuskIds = new ArrayList<>();
 
-    public ArrayList<Integer> getSubtuskIds() {
+    public List<Integer> getSubtaskIds() {
         return subtuskIds;
     }
 
@@ -22,6 +23,11 @@ public class Epic extends Task {
 
     public void addSubtaskId(Integer subtaskId) {
         subtuskIds.add(subtaskId);
+    }
+
+    public void setSubtaskIds(List<Integer> newSubtaskIds) {
+        subtuskIds = newSubtaskIds;
+
     }
 
     public void removeSubtuskIds(Integer subtuskId) {

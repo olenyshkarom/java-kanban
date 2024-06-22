@@ -7,12 +7,15 @@ import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private static List<Task> history = new ArrayList<>();
+    private List<Task> history = new ArrayList<>();
+    public static final int MAX_SIZE = 10;
 
     @Override
     public void add(Task task) {
-        //только существующие задачи
-        if (history.size() >= 10 ) {
+        if (task == null) {
+            return;
+        }
+        if (history.size() >= MAX_SIZE ) {
             history.remove(0);
         }
         history.add(task);

@@ -1,4 +1,4 @@
-package ru.practicum.tasktracker;
+package ru.practicum.tasktracker.manager;
 
 import ru.practicum.tasktracker.manager.HistoryManager;
 import ru.practicum.tasktracker.manager.InMemoryHistoryManager;

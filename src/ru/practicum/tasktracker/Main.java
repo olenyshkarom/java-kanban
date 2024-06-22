@@ -1,6 +1,6 @@
 package ru.practicum.tasktracker;
 
-import ru.practicum.tasktracker.manager.InMemoryTaskManager;
+import ru.practicum.tasktracker.manager.Managers;
 import ru.practicum.tasktracker.manager.TaskManager;
 import ru.practicum.tasktracker.task.Epic;
 import ru.practicum.tasktracker.task.Status;
@@ -64,7 +64,7 @@ public class Main {
 
 
         System.out.println("\n Тест 7: Распечатать список тасок");
-        ArrayList<Task> tasksList = taskManager.getTasks();
+        List<Task> tasksList = taskManager.getTasks();
         for (Task task : tasksList) {
             System.out.println(task.toString());
         }
@@ -76,9 +76,9 @@ public class Main {
         }
 
         System.out.println("\n Тест 8: Распечатать список сабтасок у эпика epic1Created");
-        ArrayList<Integer> subtuskIds = epic1Created.getSubtuskIds();
+        List<Integer> subtuskIds = epic1Created.getSubtaskIds();
 
-        ArrayList<Subtask> subList = taskManager.getSubtasks();
+        List<Subtask> subList = taskManager.getSubtasks();
         for (Subtask subtask : subList) {
             for (Integer subEpicIds : subtuskIds) {
                 if (Objects.equals(subtask.getId(), subEpicIds)) {

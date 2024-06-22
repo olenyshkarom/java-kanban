@@ -4,28 +4,42 @@ import org.junit.jupiter.api.Test;
 import ru.practicum.tasktracker.task.Status;
 import ru.practicum.tasktracker.task.Task;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
 
-    //убедитесь, что задачи, добавляемые в HistoryManager, сохраняют предыдущую версию задачи и её данных.
     private static InMemoryTaskManager taskManager = new InMemoryTaskManager();
-    InMemoryHistoryManager history = new InMemoryHistoryManager();
+    //InMemoryHistoryManager history = new InMemoryHistoryManager();
+
+    private final HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Test
     void checkPreviousTask() {
 
         //убедитесь, что задачи, добавляемые в HistoryManager, сохраняют предыдущую версию задачи и её данных.
         Task task1 = new Task("Имя", "Описание", Status.NEW);
-        //Task task1Created = taskManager.createTask(task1);
+        Task task1Created = taskManager.createTask(task1);      //1) Добавить задачу
+        Task getTask = taskManager.getTask(task1Created.getId());       //2) Получить задачу
 
-        history.add(task1);
+        historyManager.add(getTask);     //3) Получить историю
+        //List<Task> history =  historyManager.getHistory();
+        System.out.println(historyManager.getHistory());
 
-        task1.setName("Имя новое");
+        getTask.setName("Имя новое");       //4) Обновить добавленную задачу
+        taskManager.updateTask(getTask);
 
-        history.add(task1);
 
-        System.out.println(history.getHistory());       //А каа можно сделать так, чтобы возвращалась предыдущая версия(
+        //List<Task> history2 =  historyManager.getHistory();
+        //Task task1FromHistory = history.get(0);
+        //Task task2FromHistory = history.get(1);
+
+        //assertEquals(task1FromHistory, task2FromHistory);     //6) Проверить что историю из п3 и п5 равны, что обновление задачи не изменило задачу в истории
+
+        //!!!!!!!Вот тут вопрос!!!!!!!)) всё равно получается новая версия задачи в истории =(  Может я что-то не так обновляю?
+
+        System.out.println(historyManager.getHistory());        //5) Получить историю
 
 
 
