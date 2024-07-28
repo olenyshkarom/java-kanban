@@ -97,18 +97,6 @@ public class Main {
         System.out.println("\n Тест 11: getTask() повторно");
         taskManager.getTask(task3Created.getId());
         taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-        taskManager.getTask(task3Created.getId());
-
 
         System.out.println("\n Тест 12: Просмотр истории");
         System.out.println(taskManager.getHistory());
@@ -119,8 +107,61 @@ public class Main {
         System.out.println("\n Тест 13: getEpic()");
         System.out.println(taskManager.getEpic(epic1Created.getId()));
 
-        System.out.println("\n Тест 14: Просмотр истории с сабтаской");
+
+        System.out.println("\n Тест 6_1: Создайте две задачи");
+
+        Task task6_1 = new Task("Имя 6_1", "Описание 6_1", Status.NEW);
+        Task task6_2 = new Task("Имя 6_2", "Описание 6_2", Status.NEW);
+        Task task6_1Created = taskManager.createTask(task6_1);
+        Task task6_2Created = taskManager.createTask(task6_2);
+        System.out.println("Созданная таска должна содержать айди: " + (task6_1Created.getId() != null));
+        System.out.println("Созданная таска должна содержать айди: " + (task6_2Created.getId() != null));
+        System.out.println("Список тасок должен содержать нашу таску: " + (taskManager.getTasks()));
+
+
+        System.out.println("\n Тест 6_1: эпик с тремя подзадачами");
+        Epic epic6_1 = new Epic("Имя Эпика 6_1", "Описание эпика 6_1", Status.NEW);
+        Epic epic6_1Created = taskManager.createEpic(epic6_1);
+        System.out.println("Созданный эпик должен содержать айди: " + (epic6_1Created.getId() != null));
+        System.out.println("Список эпиков должен содержать наш эпик: " + (taskManager.getEpics()));
+
+        System.out.println("\n Тест 6_1: Создание сабтасок");
+        Subtask subtask6_1 = new Subtask(epic6_1.getId(), "Имя Сабтаски 6_1", "Описание Сабтаски 6_1", Status.NEW);
+        Subtask subtask6_2 = new Subtask(epic6_1.getId(), "Имя Сабтаски 6_2", "Описание Сабтаски 6_1", Status.NEW);
+        Subtask subtask6_1Created = taskManager.createSubtask(subtask6_1);
+        Subtask subtask6_2Created = taskManager.createSubtask(subtask6_2);
+        System.out.println("Созданный сабтаск должен содержать айди: " + (subtask6_1Created.getId() != null));
+        System.out.println("Созданный сабтаск должен содержать айди: " + (subtask6_2Created.getId() != null));
+        System.out.println("Список тасок должен содержать наши сабтаски: " + (taskManager.getSubtasks()));
+
+
+        System.out.println("\n Тест 6_1: эпик без подзадач");
+        Epic epic6_3 = new Epic("Имя Эпика 6_3", "Описание эпика 6_3", Status.NEW);
+        Epic epic6_3Created = taskManager.createEpic(epic6_3);
+        System.out.println("Созданный эпик должен содержать айди: " + (epic6_3Created.getId() != null));
+        System.out.println("Список эпиков должен содержать наш эпик: " + (taskManager.getEpics()));
+
+        System.out.println("\n Тест 6_1: Запросите созданные задачи несколько раз в разном порядке");
+
+
+        taskManager.getTask(task6_2Created.getId());
+        taskManager.getTask(task6_1Created.getId());
+        //taskManager.getTask(task6_2Created.getId());
+        taskManager.getEpic(epic6_3Created.getId());
+        taskManager.getSubtask(subtask6_1Created.getId());
+        taskManager.getTask(task6_1Created.getId());
+        //А тут появляется ошибка, но почему - не понятно
+        //Exception in thread "main" java.lang.NullPointerException: Cannot assign field "next" because "oldNode.prev" is null
+
+        System.out.println("\n Тест 6_1: Просмотр истории");
         System.out.println(taskManager.getHistory());
+
+
+
+
+
+
+
 
     }
 
