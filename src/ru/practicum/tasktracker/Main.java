@@ -111,55 +111,55 @@ public class Main {
 
         System.out.println("\n Тест 6_1: Создайте две задачи");
 
-        Task task6_1 = new Task("Имя 6_1", "Описание 6_1", Status.NEW);
-        Task task6_2 = new Task("Имя 6_2", "Описание 6_2", Status.NEW);
-        Task task6_1Created = taskManager.createTask(task6_1);
-        Task task6_2Created = taskManager.createTask(task6_2);
-        System.out.println("Созданная таска должна содержать айди: " + (task6_1Created.getId() != null));
-        System.out.println("Созданная таска должна содержать айди: " + (task6_2Created.getId() != null));
+        Task task61 = new Task("Имя 6_1", "Описание 6_1", Status.NEW);
+        Task task62 = new Task("Имя 6_2", "Описание 6_2", Status.NEW);
+        Task task61Created = taskManager.createTask(task61);
+        Task task62Created = taskManager.createTask(task62);
+        System.out.println("Созданная таска должна содержать айди: " + (task61Created.getId() != null));
+        System.out.println("Созданная таска должна содержать айди: " + (task62Created.getId() != null));
         System.out.println("Список тасок должен содержать нашу таску: " + (taskManager.getTasks()));
 
 
         System.out.println("\n Тест 6_1: эпик с тремя подзадачами");
-        Epic epic6_1 = new Epic("Имя Эпика 6_1", "Описание эпика 6_1", Status.NEW);
-        Epic epic6_1Created = taskManager.createEpic(epic6_1);
-        System.out.println("Созданный эпик должен содержать айди: " + (epic6_1Created.getId() != null));
+        Epic epic61 = new Epic("Имя Эпика 6_1", "Описание эпика 6_1", Status.NEW);
+        Epic epic61Created = taskManager.createEpic(epic61);
+        System.out.println("Созданный эпик должен содержать айди: " + (epic61Created.getId() != null));
         System.out.println("Список эпиков должен содержать наш эпик: " + (taskManager.getEpics()));
         System.out.println("История " + taskManager.getHistory());
 
         System.out.println("\n Тест 6_1: Создание сабтасок");
-        Subtask subtask6_1 = new Subtask(epic6_1Created.getId(), "Имя Сабтаски 6_1", "Описание Сабтаски 6_1", Status.NEW);
-        Subtask subtask6_2 = new Subtask(epic6_1Created.getId(), "Имя Сабтаски 6_2", "Описание Сабтаски 6_1", Status.NEW);
-        Subtask subtask6_1Created = taskManager.createSubtask(subtask6_1);
-        Subtask subtask6_2Created = taskManager.createSubtask(subtask6_2);
-        System.out.println("Созданный сабтаск должен содержать айди: " + (subtask6_1Created.getId() != null));
-        System.out.println("Созданный сабтаск должен содержать айди: " + (subtask6_2Created.getId() != null));
+        Subtask subtask61 = new Subtask(epic61Created.getId(), "Имя Сабтаски 6_1", "Описание Сабтаски 6_1", Status.NEW);
+        Subtask subtask62 = new Subtask(epic61Created.getId(), "Имя Сабтаски 6_2", "Описание Сабтаски 6_1", Status.NEW);
+        Subtask subtask61Created = taskManager.createSubtask(subtask61);
+        Subtask subtask62Created = taskManager.createSubtask(subtask62);
+        System.out.println("Созданный сабтаск должен содержать айди: " + (subtask61Created.getId() != null));
+        System.out.println("Созданный сабтаск должен содержать айди: " + (subtask62Created.getId() != null));
         System.out.println("Список тасок должен содержать наши сабтаски: " + (taskManager.getSubtasks()));
         System.out.println("История " + taskManager.getHistory());
 
 
         System.out.println("\n Тест 6_1: эпик без подзадач");
-        Epic epic6_3 = new Epic("Имя Эпика 6_3", "Описание эпика 6_3", Status.NEW);
-        Epic epic6_3Created = taskManager.createEpic(epic6_3);
-        System.out.println("Созданный эпик должен содержать айди: " + (epic6_3Created.getId() != null));
+        Epic epic63 = new Epic("Имя Эпика 6_3", "Описание эпика 6_3", Status.NEW);
+        Epic epic63Created = taskManager.createEpic(epic63);
+        System.out.println("Созданный эпик должен содержать айди: " + (epic63Created.getId() != null));
         System.out.println("Список эпиков должен содержать наш эпик: " + (taskManager.getEpics()));
         System.out.println("История " + taskManager.getHistory());
 
         System.out.println("\n Тест 6_1: Запросите созданные задачи несколько раз в разном порядке");
         System.out.println("История " + taskManager.getHistory());
 
-        taskManager.getTask(task6_2Created.getId());
+        taskManager.getTask(task62Created.getId());
         System.out.println("История " + taskManager.getHistory());
 
 
-        taskManager.getTask(task6_1Created.getId());
-        taskManager.getTask(task6_2Created.getId());
-        taskManager.getEpic(epic6_1Created.getId());
-        taskManager.getEpic(epic6_3Created.getId());
-        taskManager.getSubtask(subtask6_1Created.getId());
-        taskManager.getSubtask(subtask6_2Created.getId());
-        taskManager.getTask(task6_1Created.getId());
-        taskManager.getTask(task6_1Created.getId());
+        taskManager.getTask(task61Created.getId());
+        taskManager.getTask(task62Created.getId());
+        taskManager.getEpic(epic61Created.getId());
+        taskManager.getEpic(epic63Created.getId());
+        taskManager.getSubtask(subtask61Created.getId());
+        taskManager.getSubtask(subtask62Created.getId());
+        taskManager.getTask(task61Created.getId());
+        taskManager.getTask(task61Created.getId());
 
 
         System.out.println("\n Тест 6_1: Просмотр истории");
@@ -167,7 +167,7 @@ public class Main {
 
         System.out.println("\n Тест 6_4: Удалите задачу, которая есть в истории, и проверьте, что при печати она не будет выводиться");
 
-        boolean deleteResTask = taskManager.deleteTask(task6_1Created);
+        boolean deleteResTask = taskManager.deleteTask(task61Created);
         System.out.println("Удаление должно пройти успешно: " + deleteResTask);
         System.out.println("Список тасок должен быть без 6_1: " + taskManager.getTasks());
         System.out.println("История " + taskManager.getHistory());
@@ -175,7 +175,7 @@ public class Main {
         System.out.println("\n Тест 6_5: Удалите эпик с тремя подзадачами и убедитесь, что из истории удалился как сам эпик, так и все его подзадачи");
 
 
-        boolean deleteResEpic = taskManager.deleteEpic(epic6_1Created);
+        boolean deleteResEpic = taskManager.deleteEpic(epic61Created);
         System.out.println("Удаление должно пройти успешно: " + deleteResTask);
         System.out.println("Список тасок должен быть без 6_1: " + taskManager.getTasks());
         System.out.println("История " + taskManager.getHistory());
