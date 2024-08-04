@@ -6,56 +6,34 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private Node first;
-    private Node last;
+    private Node head;
+    private Node tail;
     private Map<Integer, Node> nodeMap = new HashMap<>();
-
-    //private List<Task> history = new ArrayList<>();
-    public static final int MAX_SIZE = 10;
 
     @Override
     public void add(Task task) {
         if (task == null) {
             return;
         }
-        linkLast(task);
-
-        // remove
-        // linkLast
-        // nodeMap.put
+        final int id = task.getId();
+        if (nodeMap.get(id) != null) {
+            //removeNode(nodeMap.get(id));
+            remove(id);
+        }
+        linkLast(task);     //тут же и в мапу добавляется
 
     }
 
     private void linkLast(Task task) {
-        if (task == null) {
-            return;
+        final Node node = new Node(task, tail, null);
+        if (head == null) {
+            head = node;
+        } else {
+            tail.next = node;
         }
+        tail = node;
 
-        Node node = new Node();
-        node.value = task;
-
-        if (nodeMap.isEmpty()) {
-            first = node;
-            last = node;
-            nodeMap.put(task.getId(), node);
-            return;
-        }
-
-        Node oldNode = nodeMap.get(task.getId());
-
-        if (oldNode != null && oldNode.next != null) {      //если задача ранее была и она не в конце, то ставим ее в конец
-            oldNode.prev.next = oldNode.next;               //если задача была и она в конце, то ничего не меняем
-            Node lastNode = nodeMap.get(last.value.getId());
-            lastNode.next = oldNode;
-            oldNode.next = null;
-            last = oldNode;
-
-        } else if (oldNode == null) {                  //если задачи не было, то добавляем в мапу и делаем ее last
-            nodeMap.put(task.getId(), node);
-            Node lastNode = nodeMap.get(last.value.getId());
-            lastNode.next = node;
-            last = node;
-        }
+        nodeMap.put(task.getId(), node);
 
     }
 
@@ -63,24 +41,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
         List<Task> result = new ArrayList<>();
 
-        if (nodeMap.isEmpty()) {
-            return result;
-        }
-
-        Node nextNode;
-        Node node = nodeMap.get(first.value.getId());
-        result.add(node.value);
-
-        int nextVal = 1;
-        while(nextVal == 1) {
-            nextNode = node.next;
-            if (nextNode == null) {
-                nextVal = 0;
-                break;
-            }
-            result.add(nextNode.value);
-            node = nextNode;
-
+        Node node = head;
+        while (node != null) {
+            result.add(node.value);     //Спасибо! а я чет намудрила, а оказывается можно намного проще и понятнее написать
+            node = node.next;
         }
         return result;
 
@@ -97,14 +61,18 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     private void removeNode(Node node) {
-        if (node.prev == null) {
+        if (node.prev == null) {            //head      //tail
             if (node.next == null) {  // если только один узел, т.е. нет ни предыдущего, ни следующего элемента
+                head = null;
+                tail = null;
                 return;
             }
             node.next.prev = null;
+            head = node.next;
             // удаляемый узел - голова списка
         } else if (node.next == null) {
             node.prev.next = null;
+            tail = node.prev;
             // удаляемый узел - хвост списка
         } else {
             // удаляемый узел - середина списка
@@ -118,5 +86,11 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node prev;
         Node next;
         Task value;
+        public Node(Task task, Node prev, Node next) {
+            this.value = task;
+            this.prev = prev;
+            this.next = next;
+        }
+
     }
 }
