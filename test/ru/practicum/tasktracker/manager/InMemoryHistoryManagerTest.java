@@ -37,11 +37,7 @@ class InMemoryHistoryManagerTest {
 
         //assertEquals(task1FromHistory, task2FromHistory);     //6) Проверить что историю из п3 и п5 равны, что обновление задачи не изменило задачу в истории
 
-        //!!!!!!!Вот тут вопрос!!!!!!!)) всё равно получается новая версия задачи в истории =(  Может я что-то не так обновляю?
-
         System.out.println(historyManager.getHistory());        //5) Получить историю
-
-
 
     }
 
