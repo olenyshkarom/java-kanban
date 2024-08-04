@@ -16,11 +16,11 @@ public class InMemoryHistoryManager implements HistoryManager {
             return;
         }
         final int id = task.getId();
-        if (nodeMap.get(id) != null) {
-            //removeNode(nodeMap.get(id));
-            remove(id);
-        }
-        linkLast(task);     //тут же и в мапу добавляется
+        remove(id);
+        linkLast(task);     //тут же и в мапу добавляется/
+        //Добавление лучше вынести сюда:
+        //history.put(id, tail);
+        //Ведь меирде linkLast отвечает за настройку ссылок, а тут как раз метод add который и должен отвечать за добавление
 
     }
 
